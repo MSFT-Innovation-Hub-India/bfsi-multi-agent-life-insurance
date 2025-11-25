@@ -1,0 +1,298 @@
+{
+  "applications": [
+    {
+      "application_metadata": {
+        "application_id": "LI2025090001",
+        "applicant_name": "Menna T",
+        "submission_date": "2025-10-03T08:15:00.000000",
+        "status": "pending",
+        "system_version": "1.0.0"
+      }
+    },
+    {
+      "application_metadata": {
+        "application_id": "LI2025090004",
+        "applicant_name": "Rahul V",
+        "submission_date": "2025-10-03T10:12:00.000000",
+        "status": "pending",
+        "system_version": "1.0.0"
+      }
+    },
+    {
+      "application_metadata": {
+        "application_id": "LI2025090003",
+        "applicant_name": "Ananya R",
+        "submission_date": "2025-10-04T09:45:00.000000",
+        "status": "pending",
+        "system_version": "1.0.0"
+      }
+    },
+    {
+      "application_metadata": {
+        "application_id": "LI2025090002",
+        "applicant_name": "Rajesh Kumar",
+        "processing_date": "2025-10-02T01:15:22.123456",
+        "processing_time_seconds": 89.321,
+        "system_version": "1.0.0"
+      },
+      "medical_extraction": {
+        "total_reports_processed": 8,
+        "successful_extractions": 8,
+        "extraction_success_rate": 1.0,
+        "medical_findings_summary": {
+          "normal_findings": 85,
+          "abnormal_findings": 3,
+          "critical_alerts": 0,
+          "critical_alert_details": [],
+          "overall_medical_risk_score": 0.1
+        }
+      },
+      "medical_loading_analysis": {
+        "total_loading_percentage": 15.0,
+        "risk_category": "LOW RISK",
+        "overall_health_score": 0.95,
+        "individual_loadings_count": 1,
+        "requires_additional_tests": false,
+        "loading_breakdown": [
+          {
+            "condition": "Mild Hypertension",
+            "loading_percentage": 15,
+            "severity": "mild",
+            "loading_type": "medical",
+            "reasoning": "Well-controlled blood pressure with medication",
+            "affects_critical_illness": false,
+            "affects_term_life": true,
+            "affects_disability": false
+          }
+        ],
+        "recommendations": [
+          "Continue current medication regimen"
+        ],
+        "exclusions": []
+      },
+      "fraud_assessment": {
+        "overall_fraud_risk": "LOW",
+        "fraud_score": 0.15,
+        "indicators_count": 0,
+        "critical_indicators": 0,
+        "high_risk_indicators": 0,
+        "verification_requirements": [],
+        "key_concerns": []
+      },
+      "risk_assessment": {
+        "overall_risk_level": "low",
+        "risk_score": 0.25,
+        "component_risks": {
+          "medical_risk": 0.2,
+          "lifestyle_risk": 0.1,
+          "financial_risk": 0.1,
+          "occupation_risk": 0.05
+        },
+        "red_flags": [],
+        "recommendations": []
+      },
+      "underwriting_decision": {
+        "final_decision": "accepted",
+        "confidence_score": 0.95,
+        "reasoning": [
+          "Low risk profile with minimal medical concerns"
+        ],
+        "conditions": [],
+        "exclusions": []
+      },
+      "premium_analysis": {
+        "total_covers": 3,
+        "total_base_premium": 8500.0,
+        "total_final_premium": 9775.0,
+        "total_loading_amount": 1275.0,
+        "average_loading_percentage": 15.0,
+        "cover_details": [
+          {
+            "cover_type": "Term Life Insurance",
+            "base_premium": 7000.0,
+            "final_premium": 8050.0,
+            "loading_percentage": 15.0,
+            "loadings_applied": ["Mild Medical Loading"]
+          }
+        ]
+      },
+      "business_impact": {
+        "auto_processable": true,
+        "requires_manual_review": false,
+        "additional_requirements_needed": false,
+        "declined": false,
+        "estimated_processing_time_days": 1,
+        "business_value_score": 0.85
+      },
+      "quality_metrics": {
+        "data_completeness_score": 1.0,
+        "analysis_confidence": 0.95,
+        "recommendation_strength": 0.90,
+        "system_performance_score": 0.98
+      },
+      "detailed_agent_responses": {
+        "medical_reviewer": {
+          "analysis": "Minimal medical risk with well-controlled hypertension.",
+          "timestamp": "2025-10-02T01:15:22.123456",
+          "agent_type": "Clinical Risk Assessment"
+        },
+        "fraud_detector": {
+          "analysis": "No fraud indicators detected. Clean application.",
+          "timestamp": "2025-10-02T01:15:22.123456",
+          "agent_type": "Fraud Detection Specialist"
+        },
+        "risk_assessor": {
+          "analysis": "Low overall risk profile suitable for standard acceptance.",
+          "timestamp": "2025-10-02T01:15:22.123456",
+          "agent_type": "Risk Assessment Specialist"
+        },
+        "premium_calculator": {
+          "analysis": "Standard premium with minimal loading for hypertension.",
+          "timestamp": "2025-10-02T01:15:22.123456",
+          "agent_type": "Premium Calculation Specialist"
+        },
+        "decision_maker": {
+          "analysis": "Application approved with standard terms.",
+          "timestamp": "2025-10-02T01:15:22.123456",
+          "agent_type": "Underwriting Decision Maker"
+        }
+      }
+    },
+    {
+      "application_metadata": {
+        "application_id": "LI2025090003",
+        "applicant_name": "Priya Sharma",
+        "processing_date": "2025-10-02T02:45:33.987654",
+        "processing_time_seconds": 45.123,
+        "system_version": "1.0.0"
+      },
+      "medical_extraction": {
+        "total_reports_processed": 5,
+        "successful_extractions": 5,
+        "extraction_success_rate": 1.0,
+        "medical_findings_summary": {
+          "normal_findings": 72,
+          "abnormal_findings": 0,
+          "critical_alerts": 0,
+          "critical_alert_details": [],
+          "overall_medical_risk_score": 0.0
+        }
+      },
+      "medical_loading_analysis": {
+        "total_loading_percentage": 0.0,
+        "risk_category": "LOW RISK",
+        "overall_health_score": 1.0,
+        "individual_loadings_count": 0,
+        "requires_additional_tests": false,
+        "loading_breakdown": [],
+        "recommendations": [
+          "Continue healthy lifestyle"
+        ],
+        "exclusions": []
+      },
+      "fraud_assessment": {
+        "overall_fraud_risk": "LOW",
+        "fraud_score": 0.05,
+        "indicators_count": 0,
+        "critical_indicators": 0,
+        "high_risk_indicators": 0,
+        "verification_requirements": [],
+        "key_concerns": []
+      },
+      "risk_assessment": {
+        "overall_risk_level": "low",
+        "risk_score": 0.10,
+        "component_risks": {
+          "medical_risk": 0.0,
+          "lifestyle_risk": 0.05,
+          "financial_risk": 0.08,
+          "occupation_risk": 0.02
+        },
+        "red_flags": [],
+        "recommendations": []
+      },
+      "underwriting_decision": {
+        "final_decision": "accepted",
+        "confidence_score": 0.98,
+        "reasoning": [
+          "Excellent health profile with no risk factors"
+        ],
+        "conditions": [],
+        "exclusions": []
+      },
+      "premium_analysis": {
+        "total_covers": 2,
+        "total_base_premium": 6500.0,
+        "total_final_premium": 6500.0,
+        "total_loading_amount": 0.0,
+        "average_loading_percentage": 0.0,
+        "cover_details": [
+          {
+            "cover_type": "Term Life Insurance",
+            "base_premium": 5500.0,
+            "final_premium": 5500.0,
+            "loading_percentage": 0.0,
+            "loadings_applied": []
+          }
+        ]
+      },
+      "business_impact": {
+        "auto_processable": true,
+        "requires_manual_review": false,
+        "additional_requirements_needed": false,
+        "declined": false,
+        "estimated_processing_time_days": 1,
+        "business_value_score": 0.95
+      },
+      "quality_metrics": {
+        "data_completeness_score": 1.0,
+        "analysis_confidence": 0.98,
+        "recommendation_strength": 0.95,
+        "system_performance_score": 0.99
+      },
+      "detailed_agent_responses": {
+        "medical_reviewer": {
+          "analysis": "Perfect health profile with no medical concerns.",
+          "timestamp": "2025-10-02T02:45:33.987654",
+          "agent_type": "Clinical Risk Assessment"
+        },
+        "fraud_detector": {
+          "analysis": "No fraud risk detected. Exemplary application.",
+          "timestamp": "2025-10-02T02:45:33.987654",
+          "agent_type": "Fraud Detection Specialist"
+        },
+        "risk_assessor": {
+          "analysis": "Minimal risk across all categories.",
+          "timestamp": "2025-10-02T02:45:33.987654",
+          "agent_type": "Risk Assessment Specialist"
+        },
+        "premium_calculator": {
+          "analysis": "Standard premium with no loading required.",
+          "timestamp": "2025-10-02T02:45:33.987654",
+          "agent_type": "Premium Calculation Specialist"
+        },
+        "decision_maker": {
+          "analysis": "Immediate approval with standard terms.",
+          "timestamp": "2025-10-02T02:45:33.987654",
+          "agent_type": "Underwriting Decision Maker"
+        }
+      }
+    }
+  ],
+  "summary": {
+    "totalApplications": 484,
+    "totalAccepted": 151,
+    "totalAdditionalRequirements": 169,
+    "totalPending": 163,
+    "totalDeclined": 1,
+    "averageProcessingTime": 143.2,
+    "totalPremiumValue": 271000000,
+    "riskDistribution": {
+      "LOW_RISK": 227,
+      "MEDIUM_RISK": 189,
+      "HIGH_RISK": 67,
+      "VERY_HIGH_RISK": 1,
+      "PENDING": 0
+    }
+  }
+}

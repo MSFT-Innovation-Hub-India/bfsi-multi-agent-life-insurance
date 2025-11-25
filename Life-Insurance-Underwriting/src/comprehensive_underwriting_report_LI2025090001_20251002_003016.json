@@ -1,0 +1,198 @@
+{
+  "application_metadata": {
+    "application_id": "LI2025090001",
+    "applicant_name": "Menna T",
+    "processing_date": "2025-10-02T00:30:16.881048",
+    "processing_time_seconds": 148.542053,
+    "system_version": "1.0.0"
+  },
+  "medical_extraction": {
+    "total_reports_processed": 15,
+    "successful_extractions": 15,
+    "extraction_success_rate": 1.0,
+    "medical_findings_summary": {
+      "normal_findings": 105,
+      "abnormal_findings": 19,
+      "critical_alerts": 4,
+      "critical_alert_details": [],
+      "overall_medical_risk_score": 0.0
+    }
+  },
+  "medical_loading_analysis": {
+    "total_loading_percentage": 165.0,
+    "risk_category": "HIGH RISK",
+    "overall_health_score": 0.7749999999999999,
+    "individual_loadings_count": 3,
+    "requires_additional_tests": true,
+    "loading_breakdown": [
+      {
+        "condition": "Uncontrolled Diabetes Mellitus",
+        "loading_percentage": 130,
+        "severity": "severe",
+        "loading_type": "medical",
+        "reasoning": "HbA1c 9.9% indicates critically uncontrolled diabetes with high risk for complications",
+        "affects_critical_illness": true,
+        "affects_term_life": true,
+        "affects_disability": true
+      },
+      {
+        "condition": "Hypertriglyceridemia",
+        "loading_percentage": 25,
+        "severity": "moderate",
+        "loading_type": "medical",
+        "reasoning": "Triglycerides 179 mg/dL - moderate cardiovascular risk",
+        "affects_critical_illness": true,
+        "affects_term_life": true,
+        "affects_disability": false
+      },
+      {
+        "condition": "Mild Microcytic Anemia",
+        "loading_percentage": 10,
+        "severity": "mild",
+        "loading_type": "medical",
+        "reasoning": "Low MCH - mild iron deficiency or thalassemia trait",
+        "affects_critical_illness": false,
+        "affects_term_life": true,
+        "affects_disability": false
+      }
+    ],
+    "recommendations": [
+      "Regular endocrinologist follow-up required",
+      "HbA1c monitoring every 3 months",
+      "Comprehensive medical evaluation recommended",
+      "Specialist consultations as appropriate"
+    ],
+    "exclusions": [
+      "Diabetes-related complications exclusion for Critical Illness coverage"
+    ]
+  },
+  "fraud_assessment": {
+    "overall_fraud_risk": "MEDIUM",
+    "fraud_score": 0.4857142857142857,
+    "indicators_count": 2,
+    "critical_indicators": 0,
+    "high_risk_indicators": 0,
+    "verification_requirements": [
+      "Verify medical test authenticity with original lab reports",
+      "Enhanced due diligence process",
+      "Supervisor approval required"
+    ],
+    "key_concerns": []
+  },
+  "risk_assessment": {
+    "overall_risk_level": "standard",
+    "risk_score": 0.8047634772856245,
+    "component_risks": {
+      "medical_risk": 1.0,
+      "lifestyle_risk": 0.19999999999999996,
+      "financial_risk": 0.5,
+      "occupation_risk": 0.1
+    },
+    "red_flags": [
+      "Critical medical alert: HbA1C 9.9% (Diabetic range, above therapeutic glycemic target)",
+      "Critical medical alert: Mean Blood Glucose 237 mg/dL (above reference range)",
+      "Critical medical alert: No E/O Clot or Vegetation",
+      "Critical medical alert: Glucose: Present (3+)"
+    ],
+    "recommendations": [
+      "Additional medical examinations recommended",
+      "Higher premium due to elevated risk factors"
+    ]
+  },
+  "underwriting_decision": {
+    "final_decision": "manual_review",
+    "confidence_score": 0.75,
+    "reasoning": [
+      "Decision: Manual Review Required due to Exclusion Policy",
+      "Risk Score: 0.805",
+      "Medical Findings: 19 abnormal, 4 critical",
+      "Processing: Manual underwriting review - 7-14 days",
+      "Total Premium: ₹29,880 (from Agent Calculation)"
+    ],
+    "conditions": [
+      "Manual underwriting review required due to multiple exclusions",
+      "Senior underwriter approval needed for policy issuance",
+      "Additional medical examinations may be required during policy term"
+    ],
+    "exclusions": [
+      "Diabetes-related complications exclusion for Critical Illness",
+      "Cardiac events exclusion due to increased cardiovascular risk",
+      "Renal complications exclusion due to diabetes risk profile"
+    ]
+  },
+  "premium_analysis": {
+    "total_covers": 3,
+    "total_base_premium": 11400.0,
+    "total_final_premium": 29880.0,
+    "total_loading_amount": 18480.0,
+    "average_loading_percentage": 165.0,
+    "cover_details": [
+      {
+        "cover_type": "Term Life Insurance",
+        "base_premium": 9600.0,
+        "final_premium": 25440.0,
+        "loading_percentage": 165.0,
+        "loadings_applied": [
+          "Comprehensive Medical Loading"
+        ]
+      },
+      {
+        "cover_type": "Critical Illness",
+        "base_premium": 1600.0,
+        "final_premium": 4240.0,
+        "loading_percentage": 165.0,
+        "loadings_applied": [
+          "Comprehensive Medical Loading"
+        ]
+      },
+      {
+        "cover_type": "Accidental Death Benefit",
+        "base_premium": 200.0,
+        "final_premium": 200.0,
+        "loading_percentage": 0.0,
+        "loadings_applied": []
+      }
+    ]
+  },
+  "business_impact": {
+    "auto_processable": false,
+    "requires_manual_review": true,
+    "additional_requirements_needed": true,
+    "declined": false,
+    "estimated_processing_time_days": 10,
+    "business_value_score": 0.34788
+  },
+  "quality_metrics": {
+    "data_completeness_score": 1.0,
+    "analysis_confidence": 0.75,
+    "recommendation_strength": 0.65,
+    "system_performance_score": 0.95
+  },
+  "detailed_agent_responses": {
+    "medical_reviewer": {
+      "analysis": "**DYNAMIC MEDICAL RISK ANALYSIS – Menna T (Age: 34)**\n\n**1. Medical Conditions Identified:**\n- Uncontrolled Diabetes Mellitus (HbA1c 9.9%, Mean Blood Glucose 237 mg/dL)\n- Hypertriglyceridemia (Triglycerides: 179 mg/dL)\n- Mild Microcytic Anemia (Low MCH: 26.9 pg)\n\n---\n\n**2. Condition-by-Condition Loading Assessment:**\n\n**A. Uncontrolled Diabetes Mellitus**\n- **Severity:** Critical (HbA1c >8.5%, Mean Blood Glucose significantly elevated)\n- **Risk Impact:** High risk for microvascular and macrovascular complications, increased morbidity and mortality, higher risk for cardiovascular disease, nephropathy, retinopathy.\n- **Recommended Loading:** **130%**  \n  *(Guideline: 100-150% for uncontrolled diabetes; higher end justified due to very poor glycemic control)*\n\n**B. Hypertriglyceridemia**\n- **Severity:** Significant (Triglycerides 179 mg/dL; reference <150 mg/dL)\n- **Risk Impact:** Moderate risk for cardiovascular disease, pancreatitis (if levels rise further), often associated with metabolic syndrome.\n- **Recommended Loading:** **25%**  \n  *(Guideline: 15-40% for high cholesterol/lipids; moderate elevation)*\n\n**C. Mild Microcytic Anemia (Low MCH)**\n- **Severity:** Minor (MCH slightly below reference; no evidence of severe anemia or underlying critical pathology)\n- **Risk Impact:** Low; may indicate mild iron deficiency or thalassemia trait, but not currently a major risk factor.\n- **Recommended Loading:** **10%**  \n  *(Guideline: 5-15% for mild lab abnormalities)*\n\n---\n\n**3. Total Medical Loading Calculation:**\n\n- **Uncontrolled Diabetes Mellitus:** 130%\n- **Hypertriglyceridemia:** 25%\n- **Mild Microcytic Anemia:** 10%\n\n**Total Recommended Medical Loading:**  \n**= 130% + 25% + 10% = 165%**\n\n---\n\n**4. Clinical Justification:**\n- The applicant presents with **critically uncontrolled diabetes** (HbA1c 9.9%, mean blood glucose 237 mg/dL), which is a major risk factor for multiple organ complications and warrants a high loading.\n- **Hypertriglyceridemia** is present at a moderately elevated level, increasing cardiovascular risk and justifying a significant loading.\n- **Mild microcytic anemia** is a minor abnormality, likely of low clinical impact, but still warrants a small loading.\n\n**MEDICAL ANALYSIS COMPLETE**",
+      "timestamp": "2025-10-02T00:30:16.881127",
+      "agent_type": "Clinical Risk Assessment"
+    },
+    "fraud_detector": {
+      "analysis": "FRAUD RISK VERIFICATION – Menna T (Age: 34)\n\n1. Medical Data Authenticity:\n- The medical findings (HbA1c 9.9%, mean blood glucose 237 mg/dL, triglycerides 179 mg/dL, low MCH) are internally consistent and align with the diagnosis of uncontrolled diabetes and hypertriglyceridemia.\n- The critical alerts and abnormal findings are plausible and match the clinical picture of a young adult with poorly controlled diabetes and associated metabolic disturbance.\n- No evidence of fabricated or manipulated laboratory values; the pattern of results is medically coherent.\n\n2. Financial Consistency:\n- Coverage request (₹8,000,000) is reasonable for an accountant with an income of ₹1,200,000. The sum assured is within standard multiples (6.6x annual income), which is typical for life insurance.\n- The high medical risk (uncontrolled diabetes) justifies the need for higher coverage, and there is no apparent attempt to over-insure relative to income.\n\n3. Data Integrity:\n- No discrepancies noted between the medical findings and the applicant’s demographic/lifestyle data.\n- BMI is normal (22.1), which is plausible for a diabetic with regular exercise, and does not contradict the lab findings.\n- No conflicting information in the provided data set.\n\n4. Pattern Recognition:\n- The combination of findings (very high HbA1c, elevated triglycerides, mild anemia) is typical for uncontrolled diabetes and does not suggest data manipulation or synthetic data.\n- No suspicious patterns such as repeated or copy-pasted values, or illogical combinations of results.\n\n**FRAUD RISK RATING: LOW**\n\n- All data appears authentic, internally consistent, and medically plausible.\n- No evidence of deception, data manipulation, or inconsistencies.\n\nFRAUD DETECTION COMPLETE",
+      "timestamp": "2025-10-02T00:30:16.881129",
+      "agent_type": "Fraud Detection Specialist"
+    },
+    "risk_assessor": {
+      "analysis": "COMPREHENSIVE MULTI-FACTOR RISK ASSESSMENT – Menna T (Age: 34)\n\n**1. MEDICAL RISK ASSESSMENT (Primary Factor – 50%)**\n- **Total Medical Loading:** 165% (from Medical Reviewer)\n- **Medical Risk Score Mapping:**  \n  - 151-250% loading → **0.1-0.4 medical risk score**\n  - 165% falls in the lower half of this range; assign **0.25** (reflects significant risk due to uncontrolled diabetes and moderate comorbidities)\n\n**2. LIFESTYLE RISK ASSESSMENT (Secondary Factor – 25%)**\n- **Smoking Status:** Non-smoker → **1.0**\n- **Alcohol Consumption:** None/Social (no evidence of heavy use) → **1.0**\n- **Exercise Habits:** Regular → **1.0**\n- **BMI:** 22.1 (Normal) → **1.0**\n- **Composite Lifestyle Risk Score:**  \n  - All factors optimal; assign **1.0**\n\n**3. OCCUPATIONAL RISK ASSESSMENT (15%)**\n- **Occupation:** Accountant (Professional/Office work) → **1.0**\n- **Travel Requirements:** Not specified, assume domestic/low risk → **1.0**\n- **Composite Occupational Risk Score:** **1.0**\n\n**4. FINANCIAL RISK ASSESSMENT (10%)**\n- **Income-to-Coverage Ratio:** ₹8,000,000 / ₹1,200,000 = 6.6x → **1.0**\n- **Employment Stability:** Accountant, no recent changes reported → **1.0**\n- **Financial Profile Consistency:** No issues detected → **1.0**\n- **Composite Financial Risk Score:** **1.0**\n\n**5. DEMOGRAPHIC RISK FACTORS**\n- **Age:** 34 (Optimal risk band) → **1.0**\n- **Gender:** Not specified; actuarial adjustment not required unless indicated\n\n---\n\n**COMPOSITE RISK CALCULATION**\n\n- Medical Risk (0.25 × 0.5) = **0.125**\n- Lifestyle Risk (1.0 × 0.25) = **0.25**\n- Occupational Risk (1.0 × 0.15) = **0.15**\n- Financial Risk (1.0 × 0.1) = **0.10**\n\n**FINAL RISK SCORE:**  \n**0.125 + 0.25 + 0.15 + 0.10 = 0.625**\n\n---\n\n**RISK CATEGORIZATION:**  \n**0.625 → MODERATE RISK (Manual review required)**\n\n---\n\n**TOP 3 RISK DRIVERS:**\n1. **Uncontrolled Diabetes Mellitus (HbA1c 9.9%, Mean Blood Glucose 237 mg/dL):** Major contributor to medical risk, driving the composite score down.\n2. **Hypertriglyceridemia:** Adds to cardiovascular risk profile, though less impactful than diabetes.\n3. **Medical Loading (165%):** The aggregate medical risk is the dominant factor, outweighing otherwise optimal lifestyle, occupational, and financial risk scores.\n\n---\n\n**JUSTIFICATION:**  \nDespite excellent lifestyle, occupational, financial, and demographic risk factors, the **critical medical risk** (uncontrolled diabetes and associated metabolic abnormalities) substantially increases overall risk. The composite score falls in the **moderate risk** category, necessitating manual underwriting review and possible additional requirements (e.g., specialist reports, further medical evidence, or stricter terms).\n\n**COMPREHENSIVE RISK ASSESSMENT COMPLETE**",
+      "timestamp": "2025-10-02T00:30:16.881130",
+      "agent_type": "Risk Assessment Specialist"
+    },
+    "premium_calculator": {
+      "analysis": "**DYNAMIC PREMIUM CALCULATION – Menna T (Age: 34)**\n\n**Coverage Amounts:**\n- Term Life Insurance: ₹8,000,000 (₹80 lakh)\n- Critical Illness: ₹2,000,000 (₹20 lakh)\n- Accidental Death Benefit: ₹1,000,000 (₹10 lakh)\n\n---\n\n**Step 1: Base Premium Calculation (Annual % of Sum Assured)**\n\n- **Term Life:** 0.12% × ₹8,000,000 = ₹9,600\n- **Critical Illness:** 0.08% × ₹2,000,000 = ₹1,600\n- **Accidental Death:** 0.02% × ₹1,000,000 = ₹200\n\n---\n\n**Step 2: Medical Loading Calculation**\n\n- **Total Medical Loading:** 165% (from risk assessment)\n\n---\n\n**Step 3: Apply Loading to Medical Coverages**\n\n- **Term Life Premium:**  \n  = Base × (1 + Total Loading%)  \n  = ₹9,600 × (1 + 1.65)  \n  = ₹9,600 × 2.65  \n  = **₹25,440**\n\n- **Critical Illness Premium:**  \n  = Base × (1 + Total Loading%)  \n  = ₹1,600 × (1 + 1.65)  \n  = ₹1,600 × 2.65  \n  = **₹4,240**\n\n- **Accidental Death Premium:**  \n  = Base (no medical loading)  \n  = **₹200**\n\n---\n\n**Step 4: Total Annual Premium Calculation**\n\n- **Term Life:** ₹25,440\n- **Critical Illness:** ₹4,240\n- **Accidental Death:** ₹200\n\n**TOTAL ANNUAL PREMIUM:**  \n= ₹25,440 + ₹4,240 + ₹200  \n= **₹29,880**\n\n---\n\n**Summary Table:**\n\n| Coverage Type         | Sum Assured   | Base Premium | Medical Loading | Final Premium |\n|----------------------|--------------|--------------|----------------|--------------|\n| Term Life            | ₹8,000,000   | ₹9,600       | 165%           | ₹25,440      |\n| Critical Illness     | ₹2,000,000   | ₹1,600       | 165%           | ₹4,240       |\n| Accidental Death     | ₹1,000,000   | ₹200         | 0%             | ₹200         |\n\n---\n\n**TOTAL ANNUAL PREMIUM PAYABLE:** **₹29,880**\n\nPREMIUM CALCULATION COMPLETE",
+      "timestamp": "2025-10-02T00:30:16.881132",
+      "agent_type": "Premium Calculation Specialist"
+    },
+    "decision_maker": {
+      "analysis": "**UNDERWRITING DECISION – Menna T (Age: 34)**\n\n**Medical Loading Used:** **165%** (as calculated by the team)\n\n**Decision Category:** **MANUAL REVIEW REQUIRED**  \n- Medical loading falls in the 151-250% range: High risk, significant medical concerns requiring manual intervention.\n- Multiple exclusions needed due to extensive medical conditions and risk profile.\n\n**Exclusions Applied (based on medical conditions):**\n- **Diabetes:** All diabetes-related complications are excluded from Critical Illness coverage.\n- **Heart Conditions:** All cardiac events are excluded from medical coverages due to increased cardiovascular risk.\n- **Kidney Disease:** Renal complications are excluded, given the risk profile associated with uncontrolled diabetes.\n- **Cancer:** No current evidence of malignancy; standard cancer exclusions apply (time-limited, subject to future review).\n\n**Processing Time:** **7-14 business days**  \n- Manual underwriting review by senior underwriter required due to exclusion policy complexity.\n- Additional medical tests and specialist reports may be required before final policy issuance.\n\n**Premium Confirmed:** **₹29,880 per annum**  \n- As calculated by the pricing specialist, inclusive of 165% medical loading.\n\n**Summary of Decision:**\n- Coverage requires **MANUAL REVIEW** due to multiple exclusions and high-risk medical profile.\n- Senior underwriter must approve the exclusion policy and final terms.\n- The applicant must undergo further medical evaluation (e.g., endocrinologist report, renal function tests).\n- Policy will include strict exclusions for diabetes-related complications, cardiac events, and renal disease.\n- Final approval subject to manual underwriting review and acceptance of exclusion terms.\n\n**UNDERWRITING DECISION: MANUAL REVIEW REQUIRED – ESCALATED TO SENIOR UNDERWRITER**",
+      "timestamp": "2025-10-02T00:30:16.881132",
+      "agent_type": "Underwriting Decision Maker"
+    }
+  }
+}

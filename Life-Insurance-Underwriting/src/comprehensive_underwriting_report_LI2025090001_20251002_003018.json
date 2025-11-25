@@ -1,0 +1,167 @@
+{
+  "application_metadata": {
+    "application_id": "LI2025090003",
+    "applicant_name": "Ananya R",
+    "processing_date": "2025-10-04T09:45:12.332441",
+    "processing_time_seconds": 132.112,
+    "system_version": "1.0.0"
+  },
+  "medical_extraction": {
+    "total_reports_processed": 10,
+    "successful_extractions": 10,
+    "extraction_success_rate": 1.0,
+    "medical_findings_summary": {
+      "normal_findings": 92,
+      "abnormal_findings": 4,
+      "critical_alerts": 0,
+      "critical_alert_details": [],
+      "overall_medical_risk_score": 0.95
+    }
+  },
+  "medical_loading_analysis": {
+    "total_loading_percentage": 15.0,
+    "risk_category": "LOW RISK",
+    "overall_health_score": 0.92,
+    "individual_loadings_count": 2,
+    "requires_additional_tests": false,
+    "loading_breakdown": [
+      {
+        "condition": "Mild Hypercholesterolemia (LDL 155 mg/dL)",
+        "loading_percentage": 10,
+        "severity": "mild",
+        "loading_type": "medical",
+        "reasoning": "Slightly elevated LDL; manageable with lifestyle",
+        "affects_critical_illness": true,
+        "affects_term_life": true,
+        "affects_disability": false
+      },
+      {
+        "condition": "Mild Iron Deficiency Anemia (Hb 11.5 g/dL)",
+        "loading_percentage": 5,
+        "severity": "mild",
+        "loading_type": "medical",
+        "reasoning": "Minor anemia; low impact on overall risk",
+        "affects_critical_illness": false,
+        "affects_term_life": true,
+        "affects_disability": false
+      }
+    ],
+    "recommendations": [
+      "Encourage regular health check-ups",
+      "Maintain healthy diet and exercise",
+      "No additional specialist tests required"
+    ],
+    "exclusions": []
+  },
+  "fraud_assessment": {
+    "overall_fraud_risk": "LOW",
+    "fraud_score": 0.15,
+    "indicators_count": 0,
+    "critical_indicators": 0,
+    "high_risk_indicators": 0,
+    "verification_requirements": [],
+    "key_concerns": []
+  },
+  "risk_assessment": {
+    "overall_risk_level": "standard",
+    "risk_score": 0.92,
+    "component_risks": {
+      "medical_risk": 0.95,
+      "lifestyle_risk": 0.98,
+      "financial_risk": 0.9,
+      "occupation_risk": 0.95
+    },
+    "red_flags": [],
+    "recommendations": [
+      "Standard policy approval",
+      "No special exclusions required"
+    ]
+  },
+  "underwriting_decision": {
+    "final_decision": "approved",
+    "confidence_score": 0.95,
+    "reasoning": [
+      "Decision: Approved with standard premium",
+      "Medical findings mostly normal with minor loadings",
+      "Low fraud and lifestyle risk",
+      "Policy eligible for issuance immediately"
+    ],
+    "conditions": [
+      "No special exclusions",
+      "Standard terms apply",
+      "Coverage effective upon premium payment"
+    ],
+    "exclusions": []
+  },
+  "premium_analysis": {
+    "total_covers": 3,
+    "total_base_premium": 10500.0,
+    "total_final_premium": 12075.0,
+    "total_loading_amount": 1575.0,
+    "average_loading_percentage": 15.0,
+    "cover_details": [
+      {
+        "cover_type": "Term Life Insurance",
+        "base_premium": 7000.0,
+        "final_premium": 8050.0,
+        "loading_percentage": 15.0,
+        "loadings_applied": ["Mild Medical Loading"]
+      },
+      {
+        "cover_type": "Critical Illness",
+        "base_premium": 3000.0,
+        "final_premium": 3450.0,
+        "loading_percentage": 15.0,
+        "loadings_applied": ["Mild Medical Loading"]
+      },
+      {
+        "cover_type": "Accidental Death Benefit",
+        "base_premium": 500.0,
+        "final_premium": 575.0,
+        "loading_percentage": 15.0,
+        "loadings_applied": ["Mild Medical Loading"]
+      }
+    ]
+  },
+  "business_impact": {
+    "auto_processable": true,
+    "requires_manual_review": false,
+    "additional_requirements_needed": false,
+    "declined": false,
+    "estimated_processing_time_days": 1,
+    "business_value_score": 0.78
+  },
+  "quality_metrics": {
+    "data_completeness_score": 1.0,
+    "analysis_confidence": 0.95,
+    "recommendation_strength": 0.9,
+    "system_performance_score": 0.97
+  },
+  "detailed_agent_responses": {
+    "medical_reviewer": {
+      "analysis": "**DYNAMIC MEDICAL RISK ANALYSIS – Ananya R (Age: 29)**\n\n- Mostly normal findings, minor cholesterol elevation and mild anemia.\n- Recommended medical loading: 15% (low)\n- No critical alerts.\n\n**Conclusion:** Low-risk applicant eligible for standard underwriting approval.",
+      "timestamp": "2025-10-04T09:45:12.332443",
+      "agent_type": "Clinical Risk Assessment"
+    },
+    "fraud_detector": {
+      "analysis": "**FRAUD RISK VERIFICATION – Ananya R (Age: 29)**\n\n- No inconsistencies detected.\n- All medical and personal data verified.\n- Fraud risk: LOW",
+      "timestamp": "2025-10-04T09:45:12.332445",
+      "agent_type": "Fraud Detection Specialist"
+    },
+    "risk_assessor": {
+      "analysis": "**COMPREHENSIVE RISK ASSESSMENT – Ananya R (Age: 29)**\n\n- Composite risk score: 0.92 (low risk)\n- Minor medical loadings, excellent lifestyle and financial factors.\n- Recommendation: APPROVE standard policy.",
+      "timestamp": "2025-10-04T09:45:12.332446",
+      "agent_type": "Risk Assessment Specialist"
+    },
+    "premium_calculator": {
+      "analysis": "**PREMIUM CALCULATION – Ananya R (Age: 29)**\n\n**Coverage Amounts:**\n- Term Life Insurance: ₹7,000,000\n- Critical Illness: ₹3,000,000  \n- Accidental Death Benefit: ₹500,000\n\n**Base Premium Calculation:**\n- Term Life: ₹7,000\n- Critical Illness: ₹3,000\n- Accidental Death: ₹500\n- Total Base Premium: ₹10,500\n\n**Medical Loading Applied: 15%**\n\n**Final Premium Calculation:**\n- Term Life: ₹7,000 × 1.15 = ₹8,050\n- Critical Illness: ₹3,000 × 1.15 = ₹3,450\n- Accidental Death: ₹500 × 1.15 = ₹575\n\n**TOTAL ANNUAL PREMIUM: ₹12,075**\n\n**Summary:** Policy approved under standard terms with minimal medical loading.",
+      "timestamp": "2025-10-04T09:45:12.332447",
+      "agent_type": "Premium Calculation Specialist"
+    },
+    "decision_maker": {
+      "analysis": "**UNDERWRITING DECISION – Ananya R (Age: 29)**\n\n- Decision: APPROVED\n- Conditions: Standard policy terms, no exclusions\n- Coverage effective immediately upon premium payment",
+      "timestamp": "2025-10-04T09:45:12.332448",
+      "agent_type": "Underwriting Decision Maker"
+    }
+  }
+}

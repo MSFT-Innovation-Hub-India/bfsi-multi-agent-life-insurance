@@ -1,0 +1,211 @@
+{
+  "application_metadata": {
+    "application_id": "LI2025090002",
+    "applicant_name": "Rahul V",
+    "processing_date": "2025-10-03T10:12:42.219841",
+    "processing_time_seconds": 172.334,
+    "system_version": "1.0.0"
+  },
+  "medical_extraction": {
+    "total_reports_processed": 12,
+    "successful_extractions": 12,
+    "extraction_success_rate": 1.0,
+    "medical_findings_summary": {
+      "normal_findings": 68,
+      "abnormal_findings": 31,
+      "critical_alerts": 6,
+      "critical_alert_details": [
+        "Severe left ventricular dysfunction (EF 35%)",
+        "Elevated Troponin I (0.23 ng/mL)",
+        "Uncontrolled Hypertension (BP 168/110 mmHg)",
+        "Uncontrolled Diabetes Mellitus (HbA1c 10.8%)",
+        "Microalbuminuria (Urine Microalbumin: 220 mg/L)",
+        "Severe Dyslipidemia (LDL 189 mg/dL)"
+      ],
+      "overall_medical_risk_score": 0.25
+    }
+  },
+  "medical_loading_analysis": {
+    "total_loading_percentage": 260.0,
+    "risk_category": "VERY HIGH RISK",
+    "overall_health_score": 0.35,
+    "individual_loadings_count": 6,
+    "requires_additional_tests": true,
+    "loading_breakdown": [
+      {
+        "condition": "Left Ventricular Dysfunction (EF 35%)",
+        "loading_percentage": 120,
+        "severity": "critical",
+        "loading_type": "medical",
+        "reasoning": "Severe cardiac dysfunction, high mortality risk",
+        "affects_critical_illness": true,
+        "affects_term_life": true,
+        "affects_disability": true
+      },
+      {
+        "condition": "Uncontrolled Diabetes Mellitus (HbA1c 10.8%)",
+        "loading_percentage": 80,
+        "severity": "severe",
+        "loading_type": "medical",
+        "reasoning": "HbA1c >10% indicates uncontrolled diabetes with complications",
+        "affects_critical_illness": true,
+        "affects_term_life": true,
+        "affects_disability": true
+      },
+      {
+        "condition": "Uncontrolled Hypertension (BP 168/110 mmHg)",
+        "loading_percentage": 40,
+        "severity": "high",
+        "loading_type": "medical",
+        "reasoning": "Stage 2 hypertension, uncontrolled despite medication",
+        "affects_critical_illness": true,
+        "affects_term_life": true,
+        "affects_disability": false
+      },
+      {
+        "condition": "Microalbuminuria (220 mg/L)",
+        "loading_percentage": 20,
+        "severity": "moderate",
+        "loading_type": "medical",
+        "reasoning": "Early diabetic nephropathy evidence",
+        "affects_critical_illness": true,
+        "affects_term_life": true,
+        "affects_disability": false
+      }
+    ],
+    "recommendations": [
+      "Decline proposal – multiple overlapping critical conditions",
+      "Medical stabilization required before reapplication",
+      "Recommend full cardiac evaluation and endocrinologist clearance"
+    ],
+    "exclusions": [
+      "Cardiac and diabetes-related complications excluded in all coverage types"
+    ]
+  },
+  "fraud_assessment": {
+    "overall_fraud_risk": "LOW",
+    "fraud_score": 0.2,
+    "indicators_count": 1,
+    "critical_indicators": 0,
+    "high_risk_indicators": 0,
+    "verification_requirements": [
+      "Verify authenticity of cardiology and pathology reports",
+      "Ensure applicant medical history matches disclosures"
+    ],
+    "key_concerns": []
+  },
+  "risk_assessment": {
+    "overall_risk_level": "very_high",
+    "risk_score": 0.35,
+    "component_risks": {
+      "medical_risk": 0.25,
+      "lifestyle_risk": 0.6,
+      "financial_risk": 0.4,
+      "occupation_risk": 0.8
+    },
+    "red_flags": [
+      "Critical cardiac dysfunction (EF 35%)",
+      "HbA1c 10.8% – severely uncontrolled diabetes",
+      "Multiple comorbidities (HTN + DM + Dyslipidemia)",
+      "Kidney function deterioration (Microalbuminuria 220 mg/L)"
+    ],
+    "recommendations": [
+      "Proposal not suitable for underwriting approval",
+      "Recommend decline as per underwriting manual section 4.3 (critical cardiac dysfunction)"
+    ]
+  },
+  "underwriting_decision": {
+    "final_decision": "rejected",
+    "confidence_score": 0.92,
+    "reasoning": [
+      "Decision: Rejected due to extremely high medical risk and multi-organ involvement",
+      "Medical Risk Score: 0.25 (critical range)",
+      "Risk Category: Very High",
+      "Multiple severe comorbidities (cardiac, diabetes, renal, hypertension)",
+      "Processing Complete – Not eligible for standard or loaded policy"
+    ],
+    "conditions": [
+      "Proposal declined as per underwriting risk limits",
+      "Reapplication possible after 12 months with medical stabilization",
+      "No coverage applicable under current health status"
+    ],
+    "exclusions": [
+      "All cardiovascular and metabolic disorder-related claims ineligible under any cover type"
+    ]
+  },
+  "premium_analysis": {
+    "total_covers": 3,
+    "total_base_premium": 10500.0,
+    "total_final_premium": 0.0,
+    "total_loading_amount": 0.0,
+    "average_loading_percentage": 260.0,
+    "cover_details": [
+      {
+        "cover_type": "Term Life Insurance",
+        "base_premium": 8000.0,
+        "final_premium": 0.0,
+        "loading_percentage": 260.0,
+        "loadings_applied": [
+          "Critical Medical Loading"
+        ]
+      },
+      {
+        "cover_type": "Critical Illness",
+        "base_premium": 2000.0,
+        "final_premium": 0.0,
+        "loading_percentage": 260.0,
+        "loadings_applied": [
+          "Critical Medical Loading"
+        ]
+      },
+      {
+        "cover_type": "Accidental Death Benefit",
+        "base_premium": 500.0,
+        "final_premium": 0.0,
+        "loading_percentage": 0.0,
+        "loadings_applied": []
+      }
+    ]
+  },
+  "business_impact": {
+    "auto_processable": false,
+    "requires_manual_review": false,
+    "additional_requirements_needed": false,
+    "declined": true,
+    "estimated_processing_time_days": 3,
+    "business_value_score": 0.12
+  },
+  "quality_metrics": {
+    "data_completeness_score": 1.0,
+    "analysis_confidence": 0.92,
+    "recommendation_strength": 0.9,
+    "system_performance_score": 0.96
+  },
+  "detailed_agent_responses": {
+    "medical_reviewer": {
+      "analysis": "**DYNAMIC MEDICAL RISK ANALYSIS – Rahul V (Age: 49)**\n\n**Key Medical Findings:**\n- Severe left ventricular dysfunction (EF 35%)\n- Uncontrolled Diabetes Mellitus (HbA1c 10.8%)\n- Uncontrolled Hypertension (168/110 mmHg)\n- Early Diabetic Nephropathy (Microalbuminuria 220 mg/L)\n\n**Assessment:**\n- High mortality and morbidity risk due to combined cardiac and metabolic failure.\n- Not eligible for standard or medically loaded cover.\n\n**Total Recommended Loading:** **260%**\n\n**Conclusion:** Decline due to critical multi-system disease. Applicant not medically insurable at present.\n\n**Recommendation:** Reassess after medical stabilization (min. 12 months).",
+      "timestamp": "2025-10-03T10:12:42.219841",
+      "agent_type": "Clinical Risk Assessment"
+    },
+    "fraud_detector": {
+      "analysis": "**FRAUD RISK VERIFICATION – Rahul V (Age: 49)**\n\n- No inconsistencies found between lab reports and applicant disclosures.\n- All results clinically plausible and consistent with a genuine cardiac-diabetic profile.\n- Fraud probability: **LOW (Score 0.2)**.\n\n**Conclusion:** Decline based purely on medical risk, not fraud-related.",
+      "timestamp": "2025-10-03T10:12:42.219843",
+      "agent_type": "Fraud Detection Specialist"
+    },
+    "risk_assessor": {
+      "analysis": "**COMPREHENSIVE RISK ASSESSMENT – Rahul V (Age: 49)**\n\n**Overall Risk:** VERY HIGH (Composite Score 0.35)\n\n**Drivers:**\n1. Critical cardiac dysfunction (EF 35%)\n2. Uncontrolled diabetes (HbA1c 10.8%)\n3. Hypertension and renal involvement\n\n**Recommendation:** Reject as per medical underwriting guidelines (section 4.3).",
+      "timestamp": "2025-10-03T10:12:42.219844",
+      "agent_type": "Risk Assessment Specialist"
+    },
+    "premium_calculator": {
+      "analysis": "**PREMIUM CALCULATION – Rahul V (Age: 49)**\n\nDue to critical risk category (260% medical loading), the proposal is **not eligible for pricing**.\n\n**Base Premium (Indicative):** ₹10,500\n**Final Premium (After Loadings):** Not calculated (policy declined)\n\n**Premium status:** REJECTED – No computation applicable.",
+      "timestamp": "2025-10-03T10:12:42.219846",
+      "agent_type": "Premium Calculation Specialist"
+    },
+    "decision_maker": {
+      "analysis": "**UNDERWRITING DECISION – Rahul V (Age: 49)**\n\n**Decision:** REJECTED\n**Reason:** Extremely high medical risk – severe cardiac dysfunction, uncontrolled diabetes, hypertension, and early nephropathy.\n\n**Policy Outcome:** Declined per underwriting manual – section 4.3\n**Future Guidance:** Reapply after medical stabilization with cardiologist and endocrinologist clearance.\n\n**Final Status:** REJECTED – NOT ELIGIBLE FOR COVERAGE",
+      "timestamp": "2025-10-03T10:12:42.219846",
+      "agent_type": "Underwriting Decision Maker"
+    }
+  }
+}

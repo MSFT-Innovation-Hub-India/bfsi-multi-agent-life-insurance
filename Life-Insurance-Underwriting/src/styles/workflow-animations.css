@@ -1,0 +1,144 @@
+/* Workflow Pipeline Animations */
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 0 0 30px rgba(59, 130, 246, 0.4);
+  }
+}
+
+@keyframes flow-arrow {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes progress-shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+.workflow-card-active {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.flow-connector-active {
+  animation: flow-arrow 1.5s ease-in-out infinite;
+}
+
+.progress-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: progress-shimmer 1.5s infinite;
+}
+
+/* Agent Status Indicators */
+.agent-status-pending {
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+  color: #4b5563;
+}
+
+.agent-status-in-progress {
+  background-color: #dbeafe;
+  border-color: #60a5fa;
+  color: #1e40af;
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.agent-status-completed {
+  background-color: #dcfce7;
+  border-color: #4ade80;
+  color: #15803d;
+}
+
+.agent-status-error {
+  background-color: #fee2e2;
+  border-color: #f87171;
+  color: #dc2626;
+}
+
+/* Parallel Stage Connectors */
+.parallel-stage {
+  position: relative;
+}
+
+.parallel-stage::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #3b82f6 20%, #3b82f6 80%, transparent 100%);
+  transform: translateY(-50%);
+  z-index: -1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .parallel-stage {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .parallel-stage::before {
+    display: none;
+  }
+}
+
+/* Hover Effects */
+.workflow-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.agent-icon-rotating {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Stage Completion Animation */
+.stage-completed {
+  position: relative;
+  overflow: hidden;
+}
+
+.stage-completed::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(34, 197, 94, 0.2),
+    transparent
+  );
+  animation: sweep-completion 1s ease-in-out;
+}
+
+@keyframes sweep-completion {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Flow Path Animation */
+.workflow-path {
+  stroke-dasharray: 5, 5;
+  animation: dash 1s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -10;
+  }
+}
