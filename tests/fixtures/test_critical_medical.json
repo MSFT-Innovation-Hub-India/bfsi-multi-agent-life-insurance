@@ -1,0 +1,110 @@
+{
+  "extraction_metadata": {
+    "total_files": 3,
+    "successful_extractions": 3,
+    "failed_extractions": 0,
+    "extraction_timestamp": "2025-09-28T17:37:47.536172"
+  },
+  "medical_data": [
+    {
+      "document_type": "Cardiac Stress Test",
+      "findings": {
+        "normal_values": [
+          {
+            "parameter": "Resting Heart Rate",
+            "value": "72 bpm",
+            "reference_range": "60-100 bpm",
+            "status": "NORMAL"
+          },
+          {
+            "parameter": "Blood Pressure at Rest",
+            "value": "130/85 mmHg",
+            "reference_range": "<140/90 mmHg",
+            "status": "NORMAL"
+          }
+        ],
+        "abnormal_values": [
+          {
+            "parameter": "Exercise Capacity",
+            "value": "4 METs",
+            "reference_range": ">7 METs",
+            "status": "ABNORMAL"
+          },
+          {
+            "parameter": "ST Segment Response",
+            "value": "3mm depression",
+            "reference_range": "<1mm depression",
+            "status": "ABNORMAL"
+          }
+        ],
+        "critical_alerts": [
+          "Exercise terminated due to chest pain and severe shortness of breath",
+          "Positive TMT: 3mm ST depression in multiple leads (V2-V6, II, III, aVF) indicating significant myocardial ischemia",
+          "Frequent PVCs (>10/min) during exercise suggesting cardiac instability"
+        ]
+      }
+    },
+    {
+      "document_type": "Echo Cardiogram",
+      "findings": {
+        "normal_values": [
+          {
+            "parameter": "Heart Rate",
+            "value": "68 bpm",
+            "reference_range": "60-100 bpm",
+            "status": "NORMAL"
+          }
+        ],
+        "abnormal_values": [
+          {
+            "parameter": "Ejection Fraction",
+            "value": "35%",
+            "reference_range": ">55%",
+            "status": "ABNORMAL"
+          },
+          {
+            "parameter": "Left Ventricular Function",
+            "value": "Moderately Reduced",
+            "reference_range": "Normal",
+            "status": "ABNORMAL"
+          }
+        ],
+        "critical_alerts": [
+          "Severe Left Ventricular Dysfunction (EF 35%) indicating heart failure",
+          "Regional wall motion abnormalities in anterior and lateral walls"
+        ]
+      }
+    },
+    {
+      "document_type": "Blood Tests",
+      "findings": {
+        "normal_values": [
+          {
+            "parameter": "Hemoglobin",
+            "value": "14.2 g/dL",
+            "reference_range": "13.5-17.5 g/dL",
+            "status": "NORMAL"
+          }
+        ],
+        "abnormal_values": [
+          {
+            "parameter": "Troponin I",
+            "value": "0.8 ng/mL",
+            "reference_range": "<0.04 ng/mL",
+            "status": "ABNORMAL"
+          },
+          {
+            "parameter": "BNP",
+            "value": "850 pg/mL",
+            "reference_range": "<100 pg/mL",
+            "status": "ABNORMAL"
+          }
+        ],
+        "critical_alerts": [
+          "Elevated Troponin I indicating recent myocardial injury",
+          "Markedly elevated BNP suggesting heart failure"
+        ]
+      }
+    }
+  ]
+}

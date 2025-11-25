@@ -1,0 +1,162 @@
+{
+  "personalInfo": {
+    "name": "Menna T",
+    "age": 34,
+    "gender": "Female",
+    "occupation": "Accountant",
+    "income": {
+      "annual": 1200000,
+      "currency": "INR"
+    }
+  },
+  "lifestyle": {
+    "smoker": false,
+    "smokingDetails": {
+      "type": "Non-smoker",
+      "yearsSmoked": 0,
+      "cigarettesPerDay": 0,
+      "quitDate": null
+    },
+    "alcohol": {
+      "consumption": "Occasional",
+      "frequency": "Social drinking",
+      "unitsPerWeek": 2
+    },
+    "exercise": {
+      "frequency": "Regular",
+      "type": ["Yoga", "Walking", "Gym"],
+      "hoursPerWeek": 5,
+      "intensity": "Moderate"
+    }
+  },
+  "health": {
+    "physical": {
+      "height": {
+        "value": 162,
+        "unit": "cm"
+      },
+      "weight": {
+        "value": 58,
+        "unit": "kg"
+      }
+
+    },
+    "vitals": {
+      "bloodPressure": {
+        "systolic": 120,
+        "diastolic": 80,
+        "unit": "mmHg",
+        "category": "Normal"
+      },
+      "restingHeartRate": 72,
+      "cholesterol": {
+        "total": 180,
+        "ldl": 110,
+        "hdl": 55,
+        "triglycerides": 120,
+        "unit": "mg/dL"
+      }
+    },
+    "labResults": {
+      "bloodSugar": {
+        "fasting": 95,
+        "postMeal": 140,
+        "hba1c": 5.4,
+        "unit": "mg/dL"
+      },
+      "liverFunction": {
+        "alt": 25,
+        "ast": 22,
+        "unit": "U/L"
+      },
+      "kidneyFunction": {
+        "creatinine": 0.9,
+        "bun": 15,
+        "unit": "mg/dL"
+      }
+    },
+    "medicalHistory": {
+      "chronicConditions": [],
+      "medications": [],
+      "allergies": [],
+      "surgeries": [],
+      "familyHistory": {
+        "diabetes": false,
+        "heartDisease": false,
+        "cancer": false,
+        "hypertension": false
+      }
+    }
+  },
+  "insuranceCoverage": {
+    "coversRequested": [
+      {
+        "coverType": "Term Life Insurance",
+        "sumAssured": 5000000,
+        "currency": "INR",
+        "term": 25,
+        "premium": {
+          "annual": 12000,
+          "mode": "Annual"
+        }
+      },
+      {
+        "coverType": "Critical Illness",
+        "sumAssured": 2000000,
+        "currency": "INR",
+        "term": 20,
+        "premium": {
+          "annual": 8000,
+          "mode": "Annual"
+        }
+      },
+      {
+        "coverType": "Accidental Death Benefit",
+        "sumAssured": 1000000,
+        "currency": "INR",
+        "term": 25,
+        "premium": {
+          "annual": 2000,
+          "mode": "Annual"
+        }
+      },
+      {
+        "coverType": "Disability Income",
+        "monthlyBenefit": 50000,
+        "currency": "INR",
+        "term": 20,
+        "premium": {
+          "annual": 15000,
+          "mode": "Annual"
+        }
+      }
+    ],
+    "totalSumAssured": 8000000,
+    "totalAnnualPremium": 37000
+  },
+  "riskAssessment": {
+    "riskCategory": "Standard",
+    "factors": {
+      "age": "Low risk",
+      "health": "Good",
+      "lifestyle": "Low risk",
+      "occupation": "Low risk"
+    },
+    "loadings": [],
+    "exclusions": []
+  },
+  "applicationDetails": {
+    "applicationDate": "2025-09-26",
+    "applicationNumber": "LI2025090001",
+    "status": "Under Review",
+    "agentId": "AG001",
+    "medicalExamRequired": true,
+    "documentsRequired": [
+      "Identity Proof",
+      "Address Proof",
+      "Income Proof",
+      "Medical Reports",
+      "Photographs"
+    ]
+  }
+}

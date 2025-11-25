@@ -1,0 +1,56 @@
+{
+  "personalInfo": {
+    "name": "John Critical Case",
+    "age": 45,
+    "gender": "Male",
+    "income": {
+      "annual": 1500000,
+      "source": "Business"
+    }
+  },
+  "applicationDetails": {
+    "applicationNumber": "LI2025090002",
+    "applicationDate": "2025-09-28"
+  },
+  "lifestyle": {
+    "smoker": true,
+    "alcoholConsumption": "Heavy",
+    "exercise": "None",
+    "BMI": 32.5
+  },
+  "health": {
+    "currentMedications": [
+      "Aspirin",
+      "Metformin"
+    ],
+    "previousIllnesses": [
+      "Diabetes",
+      "Hypertension"
+    ],
+    "familyHistory": [
+      "Heart Disease",
+      "Diabetes",
+      "Cancer"
+    ]
+  },
+  "insuranceCoverage": {
+    "totalSumAssured": 10000000,
+    "coversRequested": [
+      {
+        "coverType": "Term Life Insurance",
+        "sumAssured": 7000000,
+        "term": 20
+      },
+      {
+        "coverType": "Critical Illness",
+        "sumAssured": 2000000,
+        "term": 20
+      },
+      {
+        "coverType": "Accidental Death Benefit",
+        "sumAssured": 1000000,
+        "term": 20
+      }
+    ]
+  }
+}
