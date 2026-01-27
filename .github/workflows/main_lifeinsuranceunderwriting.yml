@@ -73,4 +73,6 @@ jobs:
         with:
           app-name: 'lifeinsuranceunderwriting'
           slot-name: 'Production'
-          
+          package: '.'
+          clean: true
+          restart: true
