@@ -7,14 +7,9 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'src/**'
-      - 'app.py'
-      - 'requirements.txt'
-      - 'data/**'
-      - '.github/workflows/main_lifeinsuranceunderwriting.yml'
     paths-ignore:
       - 'Life-Insurance-Underwriting/**'
+      - '.github/workflows/main_lifeinsuranceunderwriting-frontend.yml'
   workflow_dispatch:
 
 jobs:

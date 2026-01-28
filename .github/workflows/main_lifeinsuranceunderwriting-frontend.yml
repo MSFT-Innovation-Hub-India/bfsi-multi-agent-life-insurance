@@ -10,8 +10,6 @@ on:
     paths:
       - 'Life-Insurance-Underwriting/**'
       - '.github/workflows/main_lifeinsuranceunderwriting-frontend.yml'
-    paths-ignore:
-      - 'Life-Insurance-Underwriting/README.md'
   workflow_dispatch:
 
 jobs:
