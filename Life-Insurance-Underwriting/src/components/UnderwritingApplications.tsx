@@ -72,7 +72,7 @@ export const UnderwritingApplications: React.FC<UnderwritingApplicationsProps> =
     return (app as PendingApplication).application_metadata.status === 'pending' || !(app as UnderwritingReport).underwriting_decision;
   };
 
-  const isProcessedApplication = (app: UnderwritingReport | PendingApplication): app is UnderwritingReport => {
+  const _isProcessedApplication = (app: UnderwritingReport | PendingApplication): app is UnderwritingReport => {
     return !isPendingApplication(app);
   };
 

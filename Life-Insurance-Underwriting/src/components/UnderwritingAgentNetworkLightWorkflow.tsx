@@ -80,7 +80,7 @@ const extractPremiumFromAgent = (data: UnderwritingReport): number => {
   return data.premium_analysis?.total_final_premium || 0;
 };
 
-const extractKeyMetric = (analysis: string, agentType: string): string => {
+const _extractKeyMetric = (analysis: string, agentType: string): string => {
   const { keyMetrics } = extractKeyFindings(analysis, agentType);
   
   if (keyMetrics.length > 0) {
@@ -191,7 +191,7 @@ export const UnderwritingAgentNetworkLightWorkflow: React.FC<UnderwritingAgentNe
   applicationId, 
   data, 
   onBack, 
-  onReviewApprove,
+  onReviewApprove: _onReviewApprove,
   onViewAnalysis
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -200,7 +200,7 @@ export const UnderwritingAgentNetworkLightWorkflow: React.FC<UnderwritingAgentNe
   const [selectedAgent, setSelectedAgent] = useState<AgentNode | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [completedConnections, setCompletedConnections] = useState<string[]>([]);
-  const [parallelCompleted, setParallelCompleted] = useState<number[]>([]);
+  const [_parallelCompleted, setParallelCompleted] = useState<number[]>([]);
 
   // Create agent nodes with linear workflow positions (memoized to prevent re-creation)
   const baseAgentNodes = useMemo(() => {

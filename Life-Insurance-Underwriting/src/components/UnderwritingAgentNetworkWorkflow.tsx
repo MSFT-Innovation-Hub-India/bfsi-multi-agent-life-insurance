@@ -65,7 +65,7 @@ const agentColors: { [key: string]: string } = {
   'Underwriting Decision Maker': 'from-purple-500 to-purple-600'
 };
 
-const extractKeyMetric = (analysis: string, agentType: string): string => {
+const _extractKeyMetric = (analysis: string, agentType: string): string => {
   const { keyMetrics } = extractKeyFindings(analysis, agentType);
   
   if (keyMetrics.length > 0) {
@@ -175,7 +175,7 @@ export const UnderwritingAgentNetworkWorkflow: React.FC<UnderwritingAgentNetwork
   applicationId, 
   data, 
   onBack, 
-  onReviewApprove,
+  onReviewApprove: _onReviewApprove,
   onViewAnalysis
 }) => {
   const [currentStep, setCurrentStep] = useState(0);

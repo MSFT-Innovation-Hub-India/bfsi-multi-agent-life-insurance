@@ -409,7 +409,7 @@ export const UnderwritingAgentWorkflow: React.FC<UnderwritingAgentWorkflowProps>
                 <Clock className="h-6 w-6 text-gray-600" />
               </div>
               <h4 className="font-medium text-gray-900 mb-1">Processing Time</h4>
-              <p className="text-2xl font-bold text-gray-800">{formatTime(data.application_metadata.processing_time_seconds)}</p>
+              <p className="text-2xl font-bold text-gray-800">{formatTime(data.application_metadata.processing_time_seconds ?? 0)}</p>
               <p className="text-xs text-gray-600">Total Analysis Time</p>
             </div>
           </CardContent>
