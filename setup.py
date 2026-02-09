@@ -14,7 +14,7 @@ setup(
     description="AI-Powered Life Insurance Underwriting System with Multi-Agent Architecture",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/life-insurance-underwriting",
+    url="https://github.com/MSFT-Innovation-Hub-India/bfsi-multi-agent-life-insurance",
     packages=find_packages(exclude=["tests", "tests.*", "data", "outputs"]),
     classifiers=[
         "Development Status :: 4 - Beta",

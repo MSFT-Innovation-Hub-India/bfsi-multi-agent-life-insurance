@@ -136,8 +136,69 @@ class MedicalDataAnalyzer:
         concerns = []
         risk_factors = []
         
-        # Analyze each medical report
-        for report in medical_data.get('medical_data', []):
+        # Get medical_data - handle both list and dict formats
+        raw_medical_data = medical_data.get('medical_data', [])
+        
+        # If medical_data is a dict (simple format), convert to analyzable format
+        if isinstance(raw_medical_data, dict):
+            # Handle simple medical data format (blood_tests, lipid_profile, etc.)
+            blood_tests = raw_medical_data.get('blood_tests', {})
+            lipid_profile = raw_medical_data.get('lipid_profile', {})
+            
+            # Analyze blood tests
+            for test_name, test_data in blood_tests.items():
+                if isinstance(test_data, dict):
+                    value = test_data.get('value', 0)
+                    normal_range = test_data.get('normal_range', '')
+                    
+                    # Check for abnormal values
+                    if test_name == 'glucose_fasting' and value > 100:
+                        abnormal_values.append(f"Fasting glucose: {value} mg/dL (normal: {normal_range})")
+                        if value > 126:
+                            risk_factors.append('diabetes_risk')
+                            concerns.append(f"Elevated fasting glucose: {value} mg/dL")
+                    elif test_name == 'hba1c' and value > 5.6:
+                        abnormal_values.append(f"HbA1c: {value}% (normal: {normal_range})")
+                        if value > 6.5:
+                            risk_factors.append('diabetes')
+                            critical_alerts.append(f"High HbA1c indicates diabetes: {value}%")
+                    else:
+                        normal_values.append(f"{test_name}: {value}")
+            
+            # Analyze lipid profile
+            for lipid_name, lipid_data in lipid_profile.items():
+                if isinstance(lipid_data, dict):
+                    value = lipid_data.get('value', 0)
+                    normal_range = lipid_data.get('normal_range', '')
+                    
+                    if lipid_name == 'total_cholesterol' and value > 200:
+                        abnormal_values.append(f"Total cholesterol: {value} mg/dL (normal: {normal_range})")
+                        risk_factors.append('cholesterol_abnormal')
+                    elif lipid_name == 'ldl' and value > 100:
+                        abnormal_values.append(f"LDL: {value} mg/dL (normal: {normal_range})")
+                        if value > 130:
+                            concerns.append(f"High LDL cholesterol: {value} mg/dL")
+                    elif lipid_name == 'hdl' and value < 40:
+                        abnormal_values.append(f"Low HDL: {value} mg/dL (normal: {normal_range})")
+                    else:
+                        normal_values.append(f"{lipid_name}: {value}")
+            
+            # Return early for simple format
+            # Convert abnormal_values to list of dicts as expected by MedicalFindings
+            abnormal_values_dicts = [{"finding": v} for v in abnormal_values]
+            risk_score = min(0.3 + len(abnormal_values) * 0.05 + len(critical_alerts) * 0.1, 1.0)
+            return MedicalFindings(
+                normal_values=normal_values,
+                abnormal_values=abnormal_values_dicts,
+                critical_alerts=critical_alerts,
+                concerns=concerns,
+                risk_score=risk_score
+            )
+        
+        # Handle list format (original complex format with extraction results)
+        for report in raw_medical_data:
+            if not isinstance(report, dict):
+                continue
             if not report.get('extraction_successful'):
                 continue
                 

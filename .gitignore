@@ -229,4 +229,3 @@ site/
 # Keep directory structure
 # -------------------------
 !.gitkeep
-node_modules/

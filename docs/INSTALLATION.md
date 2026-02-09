@@ -17,8 +17,8 @@ Quick setup guide.
 ### 1. Get the Code
 
 ```bash
-git clone https://github.com/Kushikote/Life-Insurance-Underwriting.git
-cd Life-Insurance-Underwriting
+git clone https://github.com/MSFT-Innovation-Hub-India/bfsi-multi-agent-life-insurance.git
+cd bfsi-multi-agent-life-insurance
 ```
 
 ### 2. Install Python Packages

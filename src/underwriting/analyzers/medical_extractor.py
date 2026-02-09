@@ -13,12 +13,25 @@ from typing import Dict, Any, List
 from openai import AzureOpenAI
 from underwriting.config import Config
 
-# Initialize Azure OpenAI client from config
-client = AzureOpenAI(
-    api_version=Config.AZURE_OPENAI_VERSION,
-    azure_endpoint=Config.AZURE_OPENAI_ENDPOINT,
-    api_key=Config.AZURE_OPENAI_KEY,
-)
+# Initialize Azure OpenAI client from config (supports Managed Identity)
+def get_openai_client():
+    """Create Azure OpenAI client with Managed Identity or API key"""
+    config = Config.get_azure_openai_config()
+    
+    if Config.uses_managed_identity():
+        return AzureOpenAI(
+            api_version=config["api_version"],
+            azure_endpoint=config["azure_endpoint"],
+            azure_ad_token_provider=config["azure_ad_token_provider"],
+        )
+    else:
+        return AzureOpenAI(
+            api_version=config["api_version"],
+            azure_endpoint=config["azure_endpoint"],
+            api_key=config["api_key"],
+        )
+
+client = get_openai_client()
 
 class StructuredMedicalExtractor:
     """Extract structured medical data from images in JSON format"""

@@ -3,6 +3,8 @@ FastAPI Routes for Underwriting API
 ====================================
 
 RESTful and WebSocket endpoints for realtime underwriting showcase.
+Agent results are stored in Cosmos DB for analysis tracking.
+UI retrieval remains unchanged (uses existing JSON/blob sources).
 """
 
 import asyncio
@@ -17,6 +19,7 @@ from fastapi.responses import StreamingResponse, JSONResponse
 from pydantic import BaseModel, Field
 
 from .streaming_orchestrator import StreamingOrchestrator, AgentEvent, AgentStatus
+from .cosmos_storage import get_cosmos_storage
 
 logger = logging.getLogger(__name__)
 
@@ -145,9 +148,12 @@ async def process_application(request: UnderwritingRequest):
     
     This endpoint processes the application synchronously and returns
     all agent outputs along with the final decision.
+    
+    Results are stored in Cosmos DB for tracking (UI retrieval unaffected).
     """
     try:
         orchestrator = get_orchestrator()
+        cosmos_storage = get_cosmos_storage()
         
         # Convert request to dict format expected by orchestrator
         applicant_data = {
@@ -163,6 +169,15 @@ async def process_application(request: UnderwritingRequest):
         # Process application
         result = await orchestrator.process_application(applicant_data, medical_data)
         
+        # Store workflow result in Cosmos DB (non-blocking, doesn't affect response)
+        application_id = request.applicationDetails.applicationNumber
+        if cosmos_storage.is_available:
+            try:
+                await cosmos_storage.store_workflow_result(application_id, result)
+                logger.info(f"✅ Stored workflow result in Cosmos DB for {application_id}")
+            except Exception as e:
+                logger.warning(f"⚠️ Failed to store in Cosmos DB (non-critical): {e}")
+        
         return UnderwritingResponse(**result)
         
     except Exception as e:
@@ -177,9 +192,13 @@ async def process_application_stream(request: UnderwritingRequest):
     
     Returns a stream of events as each agent completes their analysis,
     enabling realtime updates in the frontend.
+    
+    Each agent result is stored in Cosmos DB as it completes.
+    UI retrieval remains unchanged.
     """
     try:
         orchestrator = get_orchestrator()
+        cosmos_storage = get_cosmos_storage()
         
         # Convert request to dict format
         applicant_data = {
@@ -191,9 +210,11 @@ async def process_application_stream(request: UnderwritingRequest):
         }
         
         medical_data = request.medicalData or {"medical_data": {}}
+        application_id = request.applicationDetails.applicationNumber
         
         async def event_generator():
-            """Generate SSE events"""
+            """Generate SSE events and store agent results in Cosmos"""
+            collected_events = []
             try:
                 async for event in orchestrator.process_application_streaming(
                     applicant_data, medical_data
@@ -201,6 +222,39 @@ async def process_application_stream(request: UnderwritingRequest):
                     # Format as SSE
                     event_data = event.to_json()
                     yield f"data: {event_data}\n\n"
+                    
+                    # Store agent result in Cosmos DB (non-blocking)
+                    if cosmos_storage.is_available and event.status == AgentStatus.COMPLETED:
+                        try:
+                            await cosmos_storage.store_agent_result(
+                                application_id=application_id,
+                                agent_name=event.agent_name,
+                                agent_role=event.agent_role,
+                                analysis=event.analysis or "",
+                                status=event.status.value,
+                                metadata=event.metadata
+                            )
+                        except Exception as e:
+                            logger.warning(f"⚠️ Failed to store agent result: {e}")
+                    
+                    collected_events.append(event.to_dict())
+                
+                # Store complete workflow result at the end
+                if cosmos_storage.is_available and collected_events:
+                    try:
+                        workflow_result = {
+                            "workflow_id": collected_events[0].get("metadata", {}).get("workflow_id"),
+                            "application_id": application_id,
+                            "applicant_name": applicant_data.get("personalInfo", {}).get("name", "Unknown"),
+                            "status": "completed",
+                            "processing_timestamp": datetime.now().isoformat(),
+                            "events": collected_events,
+                            "agent_outputs": {},
+                            "final_decision": None
+                        }
+                        await cosmos_storage.store_workflow_result(application_id, workflow_result)
+                    except Exception as e:
+                        logger.warning(f"⚠️ Failed to store workflow result: {e}")
                     
                 # Send completion event
                 yield f"data: {json.dumps({'type': 'complete', 'timestamp': datetime.now().isoformat()})}\n\n"
@@ -377,6 +431,8 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
     Connect to this endpoint and send a JSON message with applicant data
     to start processing. Events will be streamed as each agent completes.
     
+    Agent results are stored in Cosmos DB as they complete.
+    
     Message format:
     {
         "action": "process",
@@ -400,14 +456,50 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
                 # Process underwriting request
                 applicant_data = data.get("data", {})
                 medical_data = data.get("medicalData", {"medical_data": {}})
+                application_id = applicant_data.get("applicationDetails", {}).get("applicationNumber", "APP001")
                 
                 orchestrator = get_orchestrator()
+                cosmos_storage = get_cosmos_storage()
                 
-                # Stream events to client
+                collected_events = []
+                
+                # Stream events to client and store in Cosmos
                 async for event in orchestrator.process_application_streaming(
                     applicant_data, medical_data
                 ):
                     await connection_manager.send_event(client_id, event)
+                    collected_events.append(event.to_dict())
+                    
+                    # Store completed agent results in Cosmos DB
+                    if cosmos_storage.is_available and event.status == AgentStatus.COMPLETED:
+                        try:
+                            await cosmos_storage.store_agent_result(
+                                application_id=application_id,
+                                agent_name=event.agent_name,
+                                agent_role=event.agent_role,
+                                analysis=event.analysis or "",
+                                status=event.status.value,
+                                metadata=event.metadata
+                            )
+                        except Exception as e:
+                            logger.warning(f"⚠️ Failed to store agent result: {e}")
+                
+                # Store complete workflow result
+                if cosmos_storage.is_available and collected_events:
+                    try:
+                        workflow_result = {
+                            "workflow_id": collected_events[0].get("metadata", {}).get("workflow_id"),
+                            "application_id": application_id,
+                            "applicant_name": applicant_data.get("personalInfo", {}).get("name", "Unknown"),
+                            "status": "completed",
+                            "processing_timestamp": datetime.now().isoformat(),
+                            "events": collected_events,
+                            "agent_outputs": {},
+                            "final_decision": None
+                        }
+                        await cosmos_storage.store_workflow_result(application_id, workflow_result)
+                    except Exception as e:
+                        logger.warning(f"⚠️ Failed to store workflow result: {e}")
                 
                 # Send completion message
                 await websocket.send_json({
@@ -524,12 +616,15 @@ async def run_demo():
     
     Uses sample data to demonstrate the full workflow and returns
     all agent outputs along with the final decision.
+    
+    Results are stored in Cosmos DB for tracking.
     """
     try:
         # Get sample data
         sample_data = await get_sample_data()
         
         orchestrator = get_orchestrator()
+        cosmos_storage = get_cosmos_storage()
         
         # Process sample application
         result = await orchestrator.process_application(
@@ -542,6 +637,15 @@ async def run_demo():
             },
             medical_data=sample_data.get("medicalData", {"medical_data": {}})
         )
+        
+        # Store demo result in Cosmos DB
+        application_id = sample_data["applicationDetails"]["applicationNumber"]
+        if cosmos_storage.is_available:
+            try:
+                await cosmos_storage.store_workflow_result(application_id, result)
+                logger.info(f"✅ Stored demo result in Cosmos DB for {application_id}")
+            except Exception as e:
+                logger.warning(f"⚠️ Failed to store demo result (non-critical): {e}")
         
         return JSONResponse(content=result)
         

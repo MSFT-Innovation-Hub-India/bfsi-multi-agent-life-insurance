@@ -58,15 +58,23 @@ class UnderwritingAgents:
         logger.info("✅ Multi-agent system initialized successfully")
     
     def _get_agent_config(self) -> Dict[str, Any]:
-        """Get configuration for agents"""
+        """Get configuration for agents - supports both API key and Managed Identity"""
+        config_entry = {
+            "model": Config.MODEL_NAME,
+            "api_type": "azure",
+            "azure_endpoint": Config.AZURE_OPENAI_ENDPOINT,
+            "api_version": Config.AZURE_OPENAI_VERSION
+        }
+        
+        # Use Managed Identity if enabled and no API key provided
+        if Config.uses_managed_identity():
+            logger.info("🔐 Using Managed Identity for Azure OpenAI authentication")
+            config_entry["azure_ad_token_provider"] = Config.get_token_provider()
+        else:
+            config_entry["api_key"] = Config.AZURE_OPENAI_KEY
+        
         return {
-            "config_list": [{
-                "model": Config.MODEL_NAME,
-                "api_type": "azure",
-                "azure_endpoint": Config.AZURE_OPENAI_ENDPOINT,
-                "api_key": Config.AZURE_OPENAI_KEY,
-                "api_version": Config.AZURE_OPENAI_VERSION
-            }],
+            "config_list": [config_entry],
             "temperature": 0.1,
             "max_tokens": 4000,
             "timeout": self.API_TIMEOUT

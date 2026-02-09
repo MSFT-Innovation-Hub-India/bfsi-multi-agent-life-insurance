@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { UnderwritingReport } from '@/types/underwriting';
 import { createReadableAnalysisSummary, extractKeyFindings } from '@/utils/markdownSimplifier';
+import { triggerUnderwritingProcess, buildApplicationDataFromReport } from '@/utils/underwritingApi';
 
 interface UnderwritingAgentNetworkLightWorkflowProps {
   applicationId: string;
@@ -367,11 +368,31 @@ export const UnderwritingAgentNetworkLightWorkflow: React.FC<UnderwritingAgentNe
     setIsPaused(!isPaused);
   };
 
+  // Track if API has been called for this session
+  const apiCalledRef = useRef(false);
+
+  // Function to trigger the backend API (fire-and-forget)
+  const triggerBackendProcessing = () => {
+    if (apiCalledRef.current) {
+      console.log('ℹ️ API already called for this workflow session');
+      return;
+    }
+    
+    apiCalledRef.current = true;
+    const applicationData = buildApplicationDataFromReport(data);
+    triggerUnderwritingProcess(applicationData);
+  };
+
   const handleReset = () => {
     setCurrentStep(0);
     setIsPaused(false);
     setCompletedConnections([]);
     setParallelCompleted([]);
+    
+    // Reset API call tracking and trigger new API call
+    apiCalledRef.current = false;
+    triggerBackendProcessing();
+    
     // Start processing after a brief delay to show initial state
     setTimeout(() => setIsProcessing(true), 100);
   };
@@ -379,6 +400,8 @@ export const UnderwritingAgentNetworkLightWorkflow: React.FC<UnderwritingAgentNe
   // Auto-start processing on mount
   useEffect(() => {
     const startTimer = setTimeout(() => {
+      // Trigger the backend API when workflow starts
+      triggerBackendProcessing();
       setIsProcessing(true);
     }, 500);
     
