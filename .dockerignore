@@ -33,8 +33,12 @@ docs/
 logs/
 *.log
 
-# Local outputs (optional - remove if you need these in container)
+# Local outputs (not needed in container)
 outputs/
+
+# Data and models (not needed in container)
+data/
+models/
 
 # Frontend (not needed for API)
 Life-Insurance-Underwriting/

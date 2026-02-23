@@ -264,6 +264,9 @@ export const UnderwritingAgentNetworkLightWorkflow: React.FC<UnderwritingAgentNe
     });
   }, [data.detailed_agent_responses]);
 
+  // Applications that are already fully processed — skip animation for demo
+  const isAlreadyProcessed = ['LI2025090002', 'LI2025090003', 'LI2025090005'].includes(applicationId); // Rajesh Kumar, Ananya R, Priya Sharma
+
   // Add status to agent nodes based on current step
   const agentNodes: AgentNode[] = baseAgentNodes.map((node, index) => {
     let status: 'pending' | 'processing' | 'completed' = 'pending';
@@ -291,8 +294,8 @@ export const UnderwritingAgentNetworkLightWorkflow: React.FC<UnderwritingAgentNe
       // Decision Maker processing
       status = 'processing';
     } else if (index === 4 && currentStep >= 4) {
-      // Decision Maker stays in processing state (awaiting manual review)
-      status = 'processing';
+      // Decision Maker completed (for pre-processed applications, show as done)
+      status = isAlreadyProcessed ? 'completed' : 'processing';
     }
     
     return { ...node, status };
@@ -384,6 +387,14 @@ export const UnderwritingAgentNetworkLightWorkflow: React.FC<UnderwritingAgentNe
   };
 
   const handleReset = () => {
+    if (isAlreadyProcessed) {
+      // For pre-processed apps, reset just shows completed state again
+      setCurrentStep(4);
+      setIsProcessing(false);
+      setCompletedConnections(['0-1', '0-2', '1-3', '2-3', '3-4']);
+      return;
+    }
+
     setCurrentStep(0);
     setIsPaused(false);
     setCompletedConnections([]);
@@ -399,6 +410,15 @@ export const UnderwritingAgentNetworkLightWorkflow: React.FC<UnderwritingAgentNe
   
   // Auto-start processing on mount
   useEffect(() => {
+    if (isAlreadyProcessed) {
+      // Instantly show completed workflow — no animation, no delays
+      setCurrentStep(4);
+      setIsProcessing(false);
+      setCompletedConnections(['0-1', '0-2', '1-3', '2-3', '3-4']);
+      console.log('✅ Pre-processed application — showing completed workflow');
+      return;
+    }
+
     const startTimer = setTimeout(() => {
       // Trigger the backend API when workflow starts
       triggerBackendProcessing();

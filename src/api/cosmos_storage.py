@@ -302,6 +302,136 @@ class CosmosStorageService:
             return []
 
 
+    # ========================================================================
+    # Comprehensive Report Storage & Retrieval (for frontend dashboard)
+    # ========================================================================
+
+    async def store_report(
+        self,
+        application_id: str,
+        report: Dict[str, Any]
+    ) -> Optional[str]:
+        """
+        Store a comprehensive underwriting report in Cosmos DB.
+
+        This is the full report structure that the frontend dashboard expects,
+        including application_metadata, medical_extraction, premium_analysis,
+        detailed_agent_responses, etc.
+
+        Args:
+            application_id: The application ID (partition key)
+            report: Full comprehensive report dict
+
+        Returns:
+            Document ID if successful, None otherwise
+        """
+        if not self.is_available:
+            logger.warning("Cosmos DB not available, skipping report storage")
+            return None
+
+        try:
+            doc_id = f"report_{application_id}_{datetime.now().strftime('%Y%m%d%H%M%S')}"
+            document = {
+                "id": doc_id,
+                "application_id": application_id,
+                "document_type": "comprehensive_report",
+                "created_at": datetime.now().isoformat(),
+                "report": report,
+                # Denormalized fields for efficient querying
+                "applicant_name": report.get("application_metadata", {}).get("applicant_name", ""),
+                "final_decision": report.get("underwriting_decision", {}).get("final_decision", "pending"),
+                "risk_category": report.get("medical_loading_analysis", {}).get("risk_category", ""),
+                "total_final_premium": report.get("premium_analysis", {}).get("total_final_premium", 0),
+            }
+
+            result = self.container.create_item(body=document)
+            logger.info(f"✅ Stored comprehensive report for {application_id}: {result['id']}")
+            return result['id']
+
+        except exceptions.CosmosHttpResponseError as e:
+            logger.error(f"❌ Failed to store report: {e}")
+            return None
+        except Exception as e:
+            logger.error(f"❌ Unexpected error storing report: {e}")
+            return None
+
+    async def get_reports_by_application(
+        self,
+        application_id: str
+    ) -> List[Dict[str, Any]]:
+        """
+        Retrieve comprehensive reports for a specific application ID.
+
+        Args:
+            application_id: The application ID to query
+
+        Returns:
+            List of comprehensive report documents (most recent first)
+        """
+        if not self.is_available:
+            logger.warning("Cosmos DB not available")
+            return []
+
+        try:
+            query = (
+                "SELECT * FROM c WHERE c.application_id = @app_id "
+                "AND c.document_type = 'comprehensive_report' "
+                "ORDER BY c.created_at DESC"
+            )
+
+            items = list(self.container.query_items(
+                query=query,
+                parameters=[{"name": "@app_id", "value": application_id}],
+            ))
+
+            return items
+
+        except exceptions.CosmosHttpResponseError as e:
+            logger.error(f"❌ Failed to query reports for {application_id}: {e}")
+            return []
+        except Exception as e:
+            logger.error(f"❌ Unexpected error querying reports: {e}")
+            return []
+
+    async def get_all_reports(self) -> List[Dict[str, Any]]:
+        """
+        Retrieve all comprehensive reports (one per application, most recent).
+
+        Returns a summary list suitable for the dashboard applications page.
+        """
+        if not self.is_available:
+            logger.warning("Cosmos DB not available")
+            return []
+
+        try:
+            query = (
+                "SELECT * FROM c "
+                "WHERE c.document_type = 'comprehensive_report' "
+                "ORDER BY c.created_at DESC"
+            )
+
+            items = list(self.container.query_items(
+                query=query,
+                enable_cross_partition_query=True,
+            ))
+
+            # Deduplicate: keep only the most recent report per application_id
+            seen: Dict[str, Dict[str, Any]] = {}
+            for item in items:
+                app_id = item.get("application_id", "")
+                if app_id not in seen:
+                    seen[app_id] = item
+
+            return list(seen.values())
+
+        except exceptions.CosmosHttpResponseError as e:
+            logger.error(f"❌ Failed to query all reports: {e}")
+            return []
+        except Exception as e:
+            logger.error(f"❌ Unexpected error querying all reports: {e}")
+            return []
+
+
 # Global instance (lazy initialization)
 _cosmos_storage: Optional[CosmosStorageService] = None
 

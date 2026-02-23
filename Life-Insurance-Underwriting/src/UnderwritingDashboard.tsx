@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -21,11 +22,6 @@ import {
   ChevronUp
 } from 'lucide-react';
 
-// Import the underwriting report data
-import underwritingDataMenna from './comprehensive_underwriting_report_LI2025090001_20251002_003016.json';
-import underwritingDataRahul from './comprehensive_underwriting_report_LI2025090001_20251002_003017.json';
-import underwritingDataAnanya from './comprehensive_underwriting_report_LI2025090001_20251002_003018.json';
-import underwritingListData from './underwriting-dashboard-data.json';
 import { UnderwritingApplications } from './components/UnderwritingApplications';
 import { UnderwritingAgentWorkflow } from './components/UnderwritingAgentWorkflow';
 import { UnderwritingAgentRealtimeWorkflow } from './components/UnderwritingAgentRealtimeWorkflow';
@@ -34,23 +30,61 @@ import { CombinedAgentDashboard } from './components/CombinedAgentDashboard';
 import { UnderwritingAnalysisPage } from './components/UnderwritingAnalysisPage.tsx';
 import { createReadableAnalysisSummary } from './utils/markdownSimplifier';
 
+// Static dashboard summary data (kept for list view stats)
+import underwritingListData from './underwriting-dashboard-data.json';
+
+// Fallback static data imports (used only if Cosmos DB API is unreachable)
+import underwritingDataMenna from './comprehensive_underwriting_report_LI2025090001_20251002_003016.json';
+import underwritingDataRahul from './comprehensive_underwriting_report_LI2025090001_20251002_003017.json';
+import underwritingDataAnanya from './comprehensive_underwriting_report_LI2025090001_20251002_003018.json';
+
+const API_BASE = '/api/v1/underwriting';
+
 interface UnderwritingDashboardProps {
   onApplicationClick?: (applicationId: string) => void;
 }
 
 function UnderwritingDashboard({ }: UnderwritingDashboardProps) {
+  const { applicationId: routeAppId } = useParams<{ applicationId: string }>();
+  const navigate = useNavigate();
+
   const [data, setData] = useState<UnderwritingReport>(underwritingDataMenna as UnderwritingReport);
-  const [dashboardData] = useState<any>(underwritingListData);
+  const [dashboardData, setDashboardData] = useState<any>(underwritingListData);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isLoading, setIsLoading] = useState(false);
-  const [currentView, setCurrentView] = useState<'applications' | 'details' | 'workflow' | 'realtime-workflow' | 'network-workflow' | 'analysis'>('applications');
-  const [selectedApplicationId, setSelectedApplicationId] = useState<string>('');
+
+  // Determine currentView from the URL
+  const currentPath = window.location.pathname;
+  const getCurrentView = (): 'applications' | 'details' | 'workflow' | 'realtime-workflow' | 'network-workflow' | 'analysis' => {
+    if (routeAppId && currentPath.includes('/analysis')) return 'analysis';
+    if (routeAppId && currentPath.includes('/workflow')) return 'network-workflow';
+    if (routeAppId) return 'network-workflow';
+    return 'applications';
+  };
+  const [currentView, setCurrentView] = useState<'applications' | 'details' | 'workflow' | 'realtime-workflow' | 'network-workflow' | 'analysis'>(getCurrentView());
+  const [selectedApplicationId, setSelectedApplicationId] = useState<string>(routeAppId || '');
   const [isAgentAnalyticsExpanded, setIsAgentAnalyticsExpanded] = useState(false);
 
   // Scroll to top whenever view changes
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentView]);
+
+  // Dashboard list always uses static data (underwriting-dashboard-data.json)
+  // Individual application reports are fetched from Cosmos DB when clicked
+
+  // When route has an applicationId, load that report
+  useEffect(() => {
+    if (routeAppId) {
+      setSelectedApplicationId(routeAppId);
+      loadApplicationData(routeAppId);
+      if (currentPath.includes('/analysis')) {
+        setCurrentView('analysis');
+      } else {
+        setCurrentView('network-workflow');
+      }
+    }
+  }, [routeAppId]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -60,11 +94,52 @@ function UnderwritingDashboard({ }: UnderwritingDashboardProps) {
     return () => clearInterval(timer);
   }, []);
 
-  const handleRefresh = () => {
+  /** Load report data for a specific application — tries Cosmos DB API first, falls back to static */
+  const loadApplicationData = async (applicationId: string) => {
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
+
+    // Always try Cosmos DB API first
+    try {
+      const res = await fetch(`${API_BASE}/reports/${applicationId}`);
+      if (res.ok) {
+        const reportData = await res.json();
+        setData(reportData as UnderwritingReport);
+        console.log(`✅ Loaded report for ${applicationId} from Cosmos DB`);
+        setIsLoading(false);
+        return;
+      }
+      console.warn(`⚠️ API returned ${res.status} for ${applicationId} — falling back to static data`);
+    } catch (err) {
+      console.warn(`⚠️ API unreachable for ${applicationId} — falling back to static data`, err);
+    }
+
+    // Fallback to static JSON only if API failed
+    const staticMap: Record<string, any> = {
+      'LI2025090001': underwritingDataMenna,
+      'LI2025090004': underwritingDataRahul,
+      'LI2025090003': underwritingDataAnanya,
+    };
+    if (staticMap[applicationId]) {
+      setData(staticMap[applicationId] as UnderwritingReport);
+    } else {
+      // Try matching from dashboard data
+      const appData = dashboardData.applications?.find(
+        (app: any) => app.application_metadata?.application_id === applicationId
+      );
+      if (appData) {
+        setData(appData as UnderwritingReport);
+      }
+    }
+    setIsLoading(false);
+  };
+
+  const handleRefresh = async () => {
+    setIsLoading(true);
+    // Re-fetch current application from Cosmos DB if one is selected
+    if (selectedApplicationId) {
+      await loadApplicationData(selectedApplicationId);
+    }
+    setIsLoading(false);
   };
 
   const handleExport = () => {
@@ -108,30 +183,15 @@ function UnderwritingDashboard({ }: UnderwritingDashboardProps) {
     return `${(seconds / 3600).toFixed(1)}h`;
   };
 
-  const handleApplicationClick = (applicationId: string) => {
+  const handleApplicationClick = async (applicationId: string) => {
     setSelectedApplicationId(applicationId);
-    
-    // Load the appropriate data based on application ID
-    if (applicationId === 'LI2025090001') {
-      setData(underwritingDataMenna as UnderwritingReport);
-    } else if (applicationId === 'LI2025090004') {
-      // Rahul V's data from the 003017.json file
-      setData(underwritingDataRahul as UnderwritingReport);
-    } else if (applicationId === 'LI2025090003') {
-      // Ananya R's data from the 003018.json file
-      setData(underwritingDataAnanya as UnderwritingReport);
-    } else {
-      // For other applications, try to find the data in dashboardData
-      const appData = dashboardData.applications.find((app: any) => app.application_metadata.application_id === applicationId);
-      if (appData) {
-        setData(appData as UnderwritingReport);
-      }
-    }
-    
+    await loadApplicationData(applicationId);
+    navigate(`/application/${applicationId}`);
     setCurrentView('network-workflow');
   };
 
   const handleBackToApplications = () => {
+    navigate('/');
     setCurrentView('applications');
     setSelectedApplicationId('');
   };
@@ -141,22 +201,21 @@ function UnderwritingDashboard({ }: UnderwritingDashboardProps) {
   };
 
   const handleViewAnalysis = () => {
+    navigate(`/application/${selectedApplicationId}/analysis`);
     setCurrentView('analysis');
   };
 
   const handleAcceptApplication = async (applicationId: string, comments?: string) => {
     console.log('Accepting application:', applicationId, 'Comments:', comments);
-    // Here you would typically call an API to update the application status
     alert(`Application ${applicationId} has been accepted!${comments ? `\nComments: ${comments}` : ''}`);
-    // Optionally redirect back to applications list
+    navigate('/');
     setCurrentView('applications');
   };
 
   const handleRejectApplication = async (applicationId: string, reason: string, comments?: string) => {
     console.log('Rejecting application:', applicationId, 'Reason:', reason, 'Comments:', comments);
-    // Here you would typically call an API to update the application status
     alert(`Application ${applicationId} has been rejected.\nReason: ${reason}${comments ? `\nComments: ${comments}` : ''}`);
-    // Optionally redirect back to applications list
+    navigate('/');
     setCurrentView('applications');
   };
 

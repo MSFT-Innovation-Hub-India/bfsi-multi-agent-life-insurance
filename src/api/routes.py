@@ -652,3 +652,150 @@ async def run_demo():
     except Exception as e:
         logger.error(f"Demo error: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============================================================================
+# Cosmos DB Retrieval Endpoints (for frontend)
+# ============================================================================
+
+@router.get("/reports")
+async def list_reports():
+    """
+    List all underwriting reports stored in Cosmos DB.
+    Returns summary data for the applications list page.
+    """
+    try:
+        cosmos_storage = get_cosmos_storage()
+        if not cosmos_storage.is_available:
+            raise HTTPException(status_code=503, detail="Cosmos DB not available")
+
+        reports = await cosmos_storage.get_all_reports()
+        return {"reports": reports, "total": len(reports)}
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error listing reports: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/reports/{application_id}")
+async def get_reports_for_application(application_id: str):
+    """
+    Get all reports for a specific application ID.
+    """
+    try:
+        cosmos_storage = get_cosmos_storage()
+        if not cosmos_storage.is_available:
+            raise HTTPException(status_code=503, detail="Cosmos DB not available")
+
+        reports = await cosmos_storage.get_reports_by_application(application_id)
+        if not reports:
+            raise HTTPException(status_code=404, detail=f"No reports found for {application_id}")
+
+        # Return the full report data from the first (most recent) match
+        report_data = reports[0].get("report", reports[0])
+        return report_data
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting report for {application_id}: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/reports/{application_id}/all")
+async def get_all_reports_for_application(application_id: str):
+    """
+    Get all report versions for a specific application ID.
+    """
+    try:
+        cosmos_storage = get_cosmos_storage()
+        if not cosmos_storage.is_available:
+            raise HTTPException(status_code=503, detail="Cosmos DB not available")
+
+        reports = await cosmos_storage.get_reports_by_application(application_id)
+        return {"reports": reports, "total": len(reports)}
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting reports for {application_id}: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/dashboard-data")
+async def get_dashboard_data():
+    """
+    Get complete dashboard data from Cosmos DB.
+    Returns applications list with summary statistics — replaces the static JSON.
+    """
+    try:
+        cosmos_storage = get_cosmos_storage()
+        if not cosmos_storage.is_available:
+            raise HTTPException(status_code=503, detail="Cosmos DB not available")
+
+        reports = await cosmos_storage.get_all_reports()
+
+        # Build applications list from reports
+        applications = []
+        total_premium = 0
+        total_accepted = 0
+        total_additional = 0
+        total_declined = 0
+        total_pending = 0
+        processing_times = []
+
+        for r in reports:
+            app_meta = r.get("application_metadata", {})
+            decision = r.get("final_decision", "pending")
+            premium = r.get("total_final_premium", 0) or 0
+            risk = r.get("risk_category", "MEDIUM RISK")
+            proc_time = app_meta.get("processing_time_seconds", 0) or 0
+
+            total_premium += premium
+            if proc_time:
+                processing_times.append(proc_time)
+
+            if decision == "accepted":
+                total_accepted += 1
+            elif decision in ("additional_requirements", "manual_review"):
+                total_additional += 1
+            elif decision == "declined":
+                total_declined += 1
+            else:
+                total_pending += 1
+
+            # Build full report structure for each application
+            full_reports = await cosmos_storage.get_reports_by_application(
+                r.get("application_id", "")
+            )
+            if full_reports:
+                app_data = full_reports[0].get("report", {})
+                applications.append(app_data)
+            else:
+                applications.append({
+                    "application_metadata": app_meta,
+                })
+
+        total = len(reports)
+        avg_time = sum(processing_times) / len(processing_times) if processing_times else 0
+
+        return {
+            "applications": applications,
+            "summary": {
+                "totalApplications": total,
+                "totalAccepted": total_accepted,
+                "totalAdditionalRequirements": total_additional,
+                "totalDeclined": total_declined,
+                "totalPending": total_pending,
+                "totalPremiumValue": total_premium,
+                "averageProcessingTime": avg_time,
+            },
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error building dashboard data: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
