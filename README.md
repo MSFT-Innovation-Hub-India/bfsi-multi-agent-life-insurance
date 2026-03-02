@@ -48,18 +48,53 @@ npm install
 
 ### Run the System
 
-**Backend (Process Applications):**
+There are three ways to run the backend depending on your use case:
+
+| Script | What it does |
+|--------|--------------|
+| `run.py` | CLI — original v1 architecture |
+| `run_v2.py` | CLI — modular v2 architecture (recommended) |
+| `run_api.py` | Starts a FastAPI HTTP server (port 8000) |
+
+---
+
+#### Option 1: CLI — Process a Single Application (Recommended)
+
 ```bash
+# Modular v2 (recommended)
+python run_v2.py
+
+# Original v1
 python run.py
 ```
 
-**Frontend (View Dashboard):**
+Processes `data/sample/person_details.json` + images in `data/medical_images/`.  
+Outputs: underwriting decision, confidence score, medical loading %, and premium to console.  
+Report saved to `outputs/reports/`.
+
+#### Option 2: API Server (for frontend / REST clients)
+
+```bash
+python run_api.py
+```
+
+Starts a FastAPI server at **http://localhost:8000**
+
+| URL | Description |
+|-----|-------------|
+| http://localhost:8000/docs | Swagger UI |
+| http://localhost:8000/redoc | ReDoc |
+| http://localhost:8000/api/v1/underwriting/health | Health check |
+| http://localhost:8000/api/v1/underwriting/process | Process application (POST) |
+
+#### Option 3: Frontend Dashboard
+
 ```bash
 cd Life-Insurance-Underwriting
 npm run dev
 ```
 
-Opens at **http://localhost:3001**
+Opens at **http://localhost:3001** — requires the API server (`run_api.py`) to be running.
 
 ---
 
@@ -184,6 +219,9 @@ az acr build --registry $ACR_NAME --image liu-frontend:latest ./Life-Insurance-U
 ```
 
 #### 4. Deploy Backend API
+
+> The backend container runs `run_api.py` (FastAPI server on port 8000).  
+> The `Dockerfile` in the root starts it with: `CMD ["python", "run_api.py"]`
 
 ```bash
 ACR_LOGIN_SERVER=$(az acr show --name $ACR_NAME --query loginServer -o tsv)
